@@ -1,0 +1,16 @@
+# Python environments and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# Receiver output: packet journals, sidecars, saved settings, IQ recordings
+/logs/
+
+# Test capture from the release page, and any other IQ recordings
+*.iq
+
+# RTL-SDR runtime DLLs copied in from the Osmocom build (not redistributed)
+/librtlsdr.dll
+/libusb-1.0.dll
+/libwinpthread-1.dll

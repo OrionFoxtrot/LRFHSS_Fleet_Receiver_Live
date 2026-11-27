@@ -1,6 +1,7 @@
 {
-  "commit": "cbff0bf2b5a6ac9fc15364f469f26d5c5e885b71",
+  "commit": "9067373f2f345bd1c759e0da2c37251275bd6ef2",
   "exported_paths": [
+    ".gitignore",
     "EXPORT_MANIFEST.json",
     "LICENSE",
     "README.md",
@@ -92,6 +93,10 @@
     "tools/run_release_tests.py"
   ],
   "files": {
+    ".gitignore": {
+      "bytes": 370,
+      "sha256": "1f1af106327fc50908713351dfe9595a1cf8b84b6bd9955ea4aae4a233a8dd4b"
+    },
     "LICENSE": {
       "bytes": 1095,
       "sha256": "34b9bceb64aea0285b8e651c45d34d64b847e979f5480791e9a6002d3c030fd6"
@@ -446,9 +451,9 @@
     }
   },
   "manifest_excludes_own_hash": true,
-  "ref": "v1.0.0",
+  "ref": "v1.0.1",
   "schema": "lrfhss-public-export-v1",
   "snapshot_note": "Committed snapshot",
   "staged_snapshot": false,
-  "tree": "2542a7a210ed6e85b8c875eaf14393728d750d41"
+  "tree": "368f4cfb9baca05dba45691124c055a2274097cd"
 }
