@@ -1,0 +1,170 @@
+"""Operator layout only; settings and telemetry remain owned by FleetManager."""
+from PySide6 import QtCore,QtWidgets
+from lrfhss_live import DEFAULT_CENTER_HZ,DEFAULT_GAIN_DB,DEFAULT_TRIGGER_DB,DEFAULT_CARRIER_SEARCH_HZ
+from .config import LIVE_USB_BYTES,SHORT_USB_BYTES,HOP_SHARED,HOP_RR2
+from .setup_dialog import ReceiverSetup
+from .widgets import BannerMetric,HealthCell
+from .hop_view import HopView
+from .theme import MUTED,WARN
+
+
+def labeled(text,widget):
+    box=QtWidgets.QWidget();layout=QtWidgets.QVBoxLayout(box)
+    layout.setContentsMargins(0,0,0,0);layout.setSpacing(2)
+    caption=QtWidgets.QLabel(text);caption.setObjectName('overline')
+    layout.addWidget(caption);layout.addWidget(widget)
+    return box
+
+
+def build(owner):
+    root=QtWidgets.QWidget();root.setObjectName('page');owner.setCentralWidget(root)
+    outer=QtWidgets.QVBoxLayout(root);outer.setContentsMargins(0,0,0,0);outer.setSpacing(6)
+    outer.addWidget(banner(owner));outer.addWidget(run_bar(owner))
+    health=QtWidgets.QWidget();health_layout=QtWidgets.QVBoxLayout(health)
+    health_layout.setContentsMargins(10,0,10,0);health_layout.addWidget(health_strip(owner))
+    outer.addWidget(health)
+    owner.main_tabs=QtWidgets.QTabWidget()
+    owner.main_tabs.addTab(owner._build_dashboard(),'Fleet')
+    owner.main_tabs.addTab(owner._build_packet_log(),'Packet log')
+    owner.hop_view=HopView(owner.hops)
+    owner.main_tabs.addTab(owner.hop_view,'Hop IDs')
+    content=QtWidgets.QWidget();layout=QtWidgets.QVBoxLayout(content)
+    layout.setContentsMargins(10,0,10,0);layout.addWidget(owner.main_tabs)
+    outer.addWidget(content,1)
+    owner.status=QtWidgets.QStatusBar();owner.setStatusBar(owner.status)
+    owner.status.showMessage('Choose a source and start the receiver.')
+
+
+def banner(o):
+    frame=QtWidgets.QFrame();frame.setObjectName('headline')
+    layout=QtWidgets.QHBoxLayout(frame);layout.setContentsMargins(15,7,15,7);layout.setSpacing(22)
+    o.card_active=BannerMetric('ChipSats heard')
+    # The existing active count stays visible beneath its parent headline.
+    active_layout=o.card_active.layout();active_layout.removeWidget(o.card_active.title)
+    captions=QtWidgets.QVBoxLayout();captions.setSpacing(0)
+    captions.addWidget(o.card_active.title);captions.addWidget(o.card_active.sub)
+    o.card_active.sub.setStyleSheet('color:#d9e7e8;font-size:8pt;');o.card_active.sub.show()
+    active_layout.addLayout(captions)
+    o.card_valid=BannerMetric('ChipSats reporting valid data')
+    o.card_packets=BannerMetric('Packets heard (CRC-valid)')
+    o.card_failed=BannerMetric('Failed CRC')
+    o.card_failed.setToolTip('LR-FHSS PHY CRC failures; application CRC failures remain in receiver health.')
+    for widget in (o.card_active,o.card_valid,o.card_packets,o.card_failed):layout.addWidget(widget)
+    layout.addStretch(1)
+    o.receiver_state=QtWidgets.QLabel('●  Not listening')
+    o.receiver_state.setStyleSheet('color:#ffaaa1;font-size:10pt;')
+    layout.addWidget(o.receiver_state)
+    return frame
+
+
+def run_bar(o):
+    frame=QtWidgets.QFrame();frame.setObjectName('runBar')
+    layout=QtWidgets.QVBoxLayout(frame);layout.setContentsMargins(14,7,14,7);layout.setSpacing(7)
+    row=QtWidgets.QHBoxLayout();row.setSpacing(7)
+    o.run_name_edit=QtWidgets.QLineEdit('Bench run');o.run_name_edit.setObjectName('run_name')
+    o.run_name_edit.setMinimumWidth(150);o.run_name_edit.setMaximumWidth(220)
+    row.addWidget(labeled('Run name',o.run_name_edit))
+    o.source_combo=QtWidgets.QComboBox();o.source_combo.addItem('Live RTL-SDR','live');o.source_combo.addItem('IQ file','file')
+    o.source_combo.currentIndexChanged.connect(o._source_changed)
+    row.addWidget(labeled('Source',o.source_combo))
+    o.file_label=QtWidgets.QLabel('IQ file');o.file_label.setObjectName('overline')
+    o.file_edit=QtWidgets.QLineEdit();o.file_edit.setPlaceholderText('Recorded uint8 interleaved IQ');o.file_edit.setMinimumWidth(120)
+    o.file_box=QtWidgets.QWidget();file_layout=QtWidgets.QVBoxLayout(o.file_box)
+    file_layout.setContentsMargins(0,0,0,0);file_layout.setSpacing(2);file_layout.addWidget(o.file_label);file_layout.addWidget(o.file_edit)
+    row.addWidget(o.file_box,1)
+    o.browse_btn=QtWidgets.QPushButton('Browse');o.browse_btn.clicked.connect(o._browse_iq)
+    row.addWidget(o.browse_btn,0,QtCore.Qt.AlignmentFlag.AlignBottom)
+    o.setup_btn=QtWidgets.QPushButton('Receiver Setup…');o.setup_btn.clicked.connect(o._show_setup)
+    o.start_btn=QtWidgets.QPushButton('Start receiver');o.start_btn.setObjectName('primary');o.start_btn.setMinimumWidth(125)
+    o.start_btn.clicked.connect(o._toggle_receiver)
+    o.export_btn=QtWidgets.QPushButton('Export CSV');o.export_btn.clicked.connect(o._export_csv)
+    o.clear_btn=QtWidgets.QPushButton('Clear session');o.clear_btn.clicked.connect(o._clear_session)
+    for widget in (o.setup_btn,o.start_btn,o.export_btn,o.clear_btn):row.addWidget(widget,0,QtCore.Qt.AlignmentFlag.AlignBottom)
+    layout.addLayout(row)
+    controls=QtWidgets.QHBoxLayout();controls.setSpacing(8)
+    hop_label=QtWidgets.QLabel('Hop IDs');hop_label.setObjectName('overline');controls.addWidget(hop_label)
+    o.hop_mode_combo=QtWidgets.QComboBox();o.hop_mode_combo.setObjectName('hop_id_mode')
+    o.hop_mode_combo.addItem('Single', HOP_SHARED)
+    o.hop_mode_combo.addItem('Two IDs', HOP_RR2)
+    o.hop_mode_combo.currentIndexChanged.connect(o._hop_mode_changed)
+    controls.addWidget(o.hop_mode_combo)
+    def id_box(label, default):
+        box = QtWidgets.QSpinBox()
+        box.setRange(0, 511)
+        box.setValue(default)
+        box.setAccessibleName(label)
+        box.setToolTip(label)
+        box.valueChanged.connect(o._update_hop_controls)
+        controls.addWidget(box)
+        return box
+    o.single_id = id_box('Single hop ID', 256)
+    o.first_id = id_box('First hop ID', 256)
+    o.second_id = id_box('Second hop ID', 299)
+    o.hop_note = QtWidgets.QLabel('untested')
+    o.hop_note.setObjectName('runNote')
+    o.hop_note.setStyleSheet(f'color:{WARN};font-size:8pt;')
+    controls.addWidget(o.hop_note)
+    gain_label=QtWidgets.QLabel('Gain dB');gain_label.setObjectName('overline');controls.addWidget(gain_label)
+    o.gain_db=QtWidgets.QDoubleSpinBox();o.gain_db.setObjectName('gain_db');o.gain_db.setRange(-10,50)
+    o.gain_db.setDecimals(1);o.gain_db.setValue(DEFAULT_GAIN_DB);o.gain_db.setSingleStep(.1);o.gain_db.setFixedWidth(88)
+    controls.addWidget(o.gain_db)
+    o.record_iq=QtWidgets.QCheckBox('Record IQ');o.record_iq.setChecked(True)
+    o.record_iq.setToolTip('Live input: save unmodified IQ (about 7.2 GB/hour) for later decoding.')
+    controls.addWidget(o.record_iq)
+    o.exhaustive_file=QtWidgets.QCheckBox('Exhaustive decode (no real-time deadlines)');o.exhaustive_file.setChecked(False)
+    o.exhaustive_file.setToolTip('File input only. Wait for decoding and enable the existing CRC-gated payload retry search.')
+    controls.addWidget(o.exhaustive_file)
+    controls.addStretch(1);layout.addLayout(controls)
+    # Existing ranges/defaults and signals, now in a single modeless setup panel.
+    o.freq_mhz=QtWidgets.QDoubleSpinBox();o.freq_mhz.setRange(100,1800);o.freq_mhz.setDecimals(6)
+    o.freq_mhz.setValue(DEFAULT_CENTER_HZ/1e6);o.freq_mhz.setSingleStep(.1)
+    o.ppm=QtWidgets.QSpinBox();o.ppm.setRange(-200,200);o.ppm.setValue(0)
+    o.trigger_db=QtWidgets.QDoubleSpinBox();o.trigger_db.setRange(2,30);o.trigger_db.setDecimals(1);o.trigger_db.setValue(DEFAULT_TRIGGER_DB)
+    o.trigger_db.setToolTip('Coarse header energy margin above estimated noise. Lower values admit more candidates.')
+    o.trigger_note = QtWidgets.QLabel('rr 2 tested at 10 dB only.')
+    o.trigger_note.setObjectName('runNote')
+    o.trigger_db.valueChanged.connect(o._update_trigger_note)
+    o.carrier_search_khz=QtWidgets.QDoubleSpinBox();o.carrier_search_khz.setRange(4.5,25);o.carrier_search_khz.setDecimals(1)
+    o.carrier_search_khz.setSingleStep(.5);o.carrier_search_khz.setValue(DEFAULT_CARRIER_SEARCH_HZ/1000)
+    o.sic = QtWidgets.QCheckBox('Header interference cancellation (SIC)')
+    o.sic.setChecked(True)
+    o.sic.setStyleSheet('QCheckBox:disabled { color: #697e83; }')
+    o.sic.setToolTip('SIC supports hop ID 256 only.')
+    o.sic.toggled.connect(o._sic_toggled)
+    o.weak_signal_search = QtWidgets.QCheckBox('Weak-signal sync search')
+    o.weak_signal_search.setToolTip('Search for header sync in low-power windows. In live rr 2 mode, also retry failed payloads on a spare worker. Uses more CPU.')
+    o.auto_log=QtWidgets.QCheckBox('Auto-log JSONL');o.auto_log.setChecked(True)
+    o.ignore_zero=QtWidgets.QCheckBox('Ignore CSID 0');o.ignore_zero.setChecked(True)
+    o.usb_label=QtWidgets.QLabel('USB transfer');o.usb_transfer=QtWidgets.QComboBox()
+    o.usb_transfer.addItem('1 MiB',LIVE_USB_BYTES);o.usb_transfer.addItem('256 KiB',SHORT_USB_BYTES)
+    o.usb_transfer.setToolTip('Live IQ arrives about every 524 ms at 1 MiB or 131 ms at 256 KiB.')
+    o.autoset_btn=QtWidgets.QPushButton('Auto Set Gain + Trigger');o.autoset_btn.clicked.connect(o._start_autoset)
+    o.autoset_btn.setToolTip('Before starting: sample live RF for gain headroom and background trigger margin. Use representative RF levels.')
+    o.setup_dialog=ReceiverSetup(o)
+    o.hop_note.hide()
+    return frame
+
+
+def health_strip(o):
+    frame=QtWidgets.QFrame();frame.setObjectName('healthStrip')
+    layout=QtWidgets.QGridLayout(frame);layout.setContentsMargins(10,6,10,6);layout.setHorizontalSpacing(14);layout.setVerticalSpacing(3)
+    o.card_receiver=HealthCell('Receiver health','Ready')
+    o.health_lag=HealthCell('Lag')
+    o.health_gain=HealthCell('Gain')
+    o.health_expired=HealthCell('Expired headers / min')
+    o.health_recording=HealthCell('Recording')
+    o.health_source=HealthCell('Source drops · estimate')
+    o.health_clipping=HealthCell('ADC RMS / rail samples')
+    o.health_prr=HealthCell('Estimated fleet PRR')
+    o.card_app=HealthCell('Application CRC','0 pass / 0 fail')
+    o.card_rate=HealthCell('Packet rate · last 60 s','0.00 Hz','CRC-valid')
+    for col,cell in enumerate((o.health_gain,o.health_clipping,o.health_lag,o.health_expired,o.health_source,o.health_recording,o.health_prr)):
+        layout.addWidget(cell,0,col);layout.setColumnStretch(col,1)
+    # Secondary status shares one compact line; no separate rr 2 health strip.
+    secondary=QtWidgets.QHBoxLayout();secondary.setSpacing(20)
+    for cell in (o.card_receiver,o.card_app,o.card_rate):secondary.addWidget(cell)
+    o.receiver_detail=QtWidgets.QLabel('Ready. Configure a source and start the receiver.');o.receiver_detail.setObjectName('runNote')
+    o.receiver_detail.setWordWrap(True)
+    secondary.addWidget(o.receiver_detail,1)
+    layout.addLayout(secondary,1,0,1,7)
+    return frame

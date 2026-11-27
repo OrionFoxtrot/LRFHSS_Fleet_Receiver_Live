@@ -1,0 +1,454 @@
+{
+  "commit": "cbff0bf2b5a6ac9fc15364f469f26d5c5e885b71",
+  "exported_paths": [
+    "EXPORT_MANIFEST.json",
+    "LICENSE",
+    "README.md",
+    "THIRD_PARTY_NOTICES.md",
+    "decode_iq.bat",
+    "install.bat",
+    "lrfhss_gui.py",
+    "native/rtl_tcp/build.py",
+    "native/rtl_tcp/rtl-sdr-2.0.2.tar.gz",
+    "native/rtl_tcp/transfer-size.patch",
+    "native/viterbi_cr23.cpp",
+    "requirements-tested.txt",
+    "requirements.txt",
+    "rtl_tcp_fleet.exe",
+    "run.bat",
+    "run_cli.bat",
+    "run_gui.bat",
+    "run_tests.bat",
+    "src/descent_payload.py",
+    "src/lrfhss_acquisition.py",
+    "src/lrfhss_acquisition_process.py",
+    "src/lrfhss_acquisition_split.py",
+    "src/lrfhss_adaptive_retry.py",
+    "src/lrfhss_autoset.py",
+    "src/lrfhss_budget.py",
+    "src/lrfhss_correlation.py",
+    "src/lrfhss_diagnostics.py",
+    "src/lrfhss_dsp.py",
+    "src/lrfhss_exhaustive_file.py",
+    "src/lrfhss_fragments.py",
+    "src/lrfhss_frequency_reuse.py",
+    "src/lrfhss_gui_app/__init__.py",
+    "src/lrfhss_gui_app/bridge.py",
+    "src/lrfhss_gui_app/config.py",
+    "src/lrfhss_gui_app/display_io.py",
+    "src/lrfhss_gui_app/fleet_table.py",
+    "src/lrfhss_gui_app/gui_files.py",
+    "src/lrfhss_gui_app/gui_shutdown.py",
+    "src/lrfhss_gui_app/health.py",
+    "src/lrfhss_gui_app/hop_view.py",
+    "src/lrfhss_gui_app/journal.py",
+    "src/lrfhss_gui_app/operator_layout.py",
+    "src/lrfhss_gui_app/packet_table.py",
+    "src/lrfhss_gui_app/receiver.py",
+    "src/lrfhss_gui_app/rr2_health.py",
+    "src/lrfhss_gui_app/session.py",
+    "src/lrfhss_gui_app/setup_dialog.py",
+    "src/lrfhss_gui_app/theme.py",
+    "src/lrfhss_gui_app/widgets.py",
+    "src/lrfhss_gui_app/window.py",
+    "src/lrfhss_header_batch.py",
+    "src/lrfhss_header_cache.py",
+    "src/lrfhss_header_frontend.py",
+    "src/lrfhss_header_grids.py",
+    "src/lrfhss_header_jobs.py",
+    "src/lrfhss_header_pipeline.py",
+    "src/lrfhss_header_reuse.py",
+    "src/lrfhss_header_transaction.py",
+    "src/lrfhss_hop_ids.py",
+    "src/lrfhss_iq_recorder.py",
+    "src/lrfhss_live.py",
+    "src/lrfhss_metrics.py",
+    "src/lrfhss_noise.py",
+    "src/lrfhss_payload_accel.py",
+    "src/lrfhss_payload_jobs.py",
+    "src/lrfhss_phdr_dsp.py",
+    "src/lrfhss_phdr_screen.py",
+    "src/lrfhss_readable.py",
+    "src/lrfhss_reports.py",
+    "src/lrfhss_shared_iq.py",
+    "src/lrfhss_sic.py",
+    "src/lrfhss_sic_jobs.py",
+    "src/lrfhss_sic_owner.py",
+    "src/lrfhss_source_monitor.py",
+    "src/lrfhss_test_data.py",
+    "src/lrfhss_timing.py",
+    "src/lrfhss_tracking.py",
+    "tests/__init__.py",
+    "tests/test_adaptive_payload_retry.py",
+    "tests/test_exhaustive_file.py",
+    "tests/test_fleet_diagnostics.py",
+    "tests/test_public_capture.py",
+    "tests/test_release_runner.py",
+    "tests/test_sic_frontend_policy.py",
+    "tests/test_sic_pressure_cache.py",
+    "tests/test_tracking.py",
+    "tools/__init__.py",
+    "tools/_src_path.py",
+    "tools/run_release_tests.py"
+  ],
+  "files": {
+    "LICENSE": {
+      "bytes": 1095,
+      "sha256": "34b9bceb64aea0285b8e651c45d34d64b847e979f5480791e9a6002d3c030fd6"
+    },
+    "README.md": {
+      "bytes": 6181,
+      "sha256": "b7c17ebf8b6aedecf4110ffe6624035672af2d790e4bbe8fc100953055e52e68"
+    },
+    "THIRD_PARTY_NOTICES.md": {
+      "bytes": 4977,
+      "sha256": "b3a95ffafdfcbb5bc3da47bf53d01d530f30230e7d0ae3c808d72dff91b1d9d4"
+    },
+    "decode_iq.bat": {
+      "bytes": 635,
+      "sha256": "da887c84aacf294f721a005917632fff89c446b3f805521059f87f178ef32cde"
+    },
+    "install.bat": {
+      "bytes": 678,
+      "sha256": "9f7a1ef299cbf9fc801261f50cfca754ef3265521679f67a5af3bbd7c41017f8"
+    },
+    "lrfhss_gui.py": {
+      "bytes": 751,
+      "sha256": "e17f30508486a363df0109053752fc832892ef31613089739aa7161fb06f2bd7"
+    },
+    "native/rtl_tcp/build.py": {
+      "bytes": 1384,
+      "sha256": "7c9cb962f01b77bfbe0b22b79d6d96f44bd59b12be6e652b5bdfb1c77a7dbb9c"
+    },
+    "native/rtl_tcp/rtl-sdr-2.0.2.tar.gz": {
+      "bytes": 136512,
+      "sha256": "d69943eb32df742bc38a00ce6615e41250fd57851174e5ff916ec31e9e9e68e9"
+    },
+    "native/rtl_tcp/transfer-size.patch": {
+      "bytes": 2157,
+      "sha256": "33da0d2d3f5948a01377bd32e9da0c61231557d616a9367cf9b241efed42f47b"
+    },
+    "native/viterbi_cr23.cpp": {
+      "bytes": 2122,
+      "sha256": "ae9eeb134a75d37fff3fd8029fb95def567c3733c51317d9fc5cb8a58be67aa8"
+    },
+    "requirements-tested.txt": {
+      "bytes": 188,
+      "sha256": "c7ad6b2fe9506b6b22602b09adc7173ca0f3e9f490973b6567d9ed0e88b8d213"
+    },
+    "requirements.txt": {
+      "bytes": 55,
+      "sha256": "cb40d98707189315edafc8446be1fc811c144d0a35643483ce06eeb922b69fb1"
+    },
+    "rtl_tcp_fleet.exe": {
+      "bytes": 34304,
+      "sha256": "9b980ef902a67ed276144b90ab669def9a3718378298044dd939996891ba6a00"
+    },
+    "run.bat": {
+      "bytes": 36,
+      "sha256": "db73533f8ef14b270c5040073ce75a1b92614a9383775162fac2d341ec382092"
+    },
+    "run_cli.bat": {
+      "bytes": 540,
+      "sha256": "36baa3b5e065869a0948bd91ead71760ae236819be45e36ed03c7ecbd6d82e6f"
+    },
+    "run_gui.bat": {
+      "bytes": 512,
+      "sha256": "098053e726f8e27bd8ebdd7a1f9c7b08007814db3b324f57a61e46adff22f024"
+    },
+    "run_tests.bat": {
+      "bytes": 691,
+      "sha256": "eadac59a7d95654d882193fedd7d7a86a5edfaaf8035682a5ba962d95802abc3"
+    },
+    "src/descent_payload.py": {
+      "bytes": 10260,
+      "sha256": "28091126490a88d435de3d78ba9617876adc3c7abb0d0e5a6b4e17ea5d8b4a03"
+    },
+    "src/lrfhss_acquisition.py": {
+      "bytes": 31974,
+      "sha256": "1e759a9ed7d0ee16f02fe85c1fd76b10688d9272badd973fad65382ba7ba8b74"
+    },
+    "src/lrfhss_acquisition_process.py": {
+      "bytes": 12880,
+      "sha256": "61603fc57e53329a4cf90ec7ebaa0944eaa2a99c34afe4195e4a548320195a86"
+    },
+    "src/lrfhss_acquisition_split.py": {
+      "bytes": 9715,
+      "sha256": "2a7dab974f87f64be156d70565228142b393fc41395cf35b78fa1fb8a9546c72"
+    },
+    "src/lrfhss_adaptive_retry.py": {
+      "bytes": 5900,
+      "sha256": "e186e573a76f15e7689678283a5af3471ce8510f2c8e84e0ab7a07e84b09fb82"
+    },
+    "src/lrfhss_autoset.py": {
+      "bytes": 8246,
+      "sha256": "a9bafb4f021ed39938ba680f946266f8f5020d5d8117df7c1a2dc4e891e5751f"
+    },
+    "src/lrfhss_budget.py": {
+      "bytes": 740,
+      "sha256": "86c361196fc24c4dc594a51ebf73eb0cc86e5cafde12da1307570f7562a136e0"
+    },
+    "src/lrfhss_correlation.py": {
+      "bytes": 3257,
+      "sha256": "be0824aa0b49d713e9106605162fb157133a277ee2b8cf3759e8b0fb7bbd04c2"
+    },
+    "src/lrfhss_diagnostics.py": {
+      "bytes": 25520,
+      "sha256": "30a9138e9fd8d4394ec53649e3a85513e25ad8a8207a266ca9102adaab4c5235"
+    },
+    "src/lrfhss_dsp.py": {
+      "bytes": 10539,
+      "sha256": "883a2fc34af40ec140f10c76f4b19209bee1f535886ff6da3f9440629402f44a"
+    },
+    "src/lrfhss_exhaustive_file.py": {
+      "bytes": 8904,
+      "sha256": "9062ea2c041db8548d8fb8fc8ab6193e9204e44228f97cd218e91c2ba75cce28"
+    },
+    "src/lrfhss_fragments.py": {
+      "bytes": 6971,
+      "sha256": "ded1c4122188a74e8df1c8f2234ab3fefa3e4111c0465f8f5abcbf6e8778047f"
+    },
+    "src/lrfhss_frequency_reuse.py": {
+      "bytes": 2358,
+      "sha256": "b41a2b97699af4a4defc0ad08dc14b137e1f10c972aad6b6fda77f926a5de314"
+    },
+    "src/lrfhss_gui_app/__init__.py": {
+      "bytes": 49,
+      "sha256": "50f3ab687734c995085151b2a8badeb4815346574fe1eb6f3aae9369be711eab"
+    },
+    "src/lrfhss_gui_app/bridge.py": {
+      "bytes": 5345,
+      "sha256": "b0a587e24a63d5b57e484759722d3371f64330d4a0cd3df8d5204789eb5b464d"
+    },
+    "src/lrfhss_gui_app/config.py": {
+      "bytes": 9037,
+      "sha256": "31119d3fc528dc31793b72ea4de5af99be46c2476c597726bc1738a114e2afb0"
+    },
+    "src/lrfhss_gui_app/display_io.py": {
+      "bytes": 8814,
+      "sha256": "a07196891e9dcb8bc2e2bc52e7598ad9e52aa3db23c329230610561d9c44ce4c"
+    },
+    "src/lrfhss_gui_app/fleet_table.py": {
+      "bytes": 4999,
+      "sha256": "3fb8ac2437055f48edd2cae862330330872bf586df54081bcb84c6e9ef8090d3"
+    },
+    "src/lrfhss_gui_app/gui_files.py": {
+      "bytes": 4078,
+      "sha256": "73ac9ba3e671421812d63e5d5cb61a59caec43f07f3c6fd598e9d16f9150d9de"
+    },
+    "src/lrfhss_gui_app/gui_shutdown.py": {
+      "bytes": 918,
+      "sha256": "b6c3c1931884fda941e6d027de0027c9afa99dc1183ea772773b6c869a87e36c"
+    },
+    "src/lrfhss_gui_app/health.py": {
+      "bytes": 6005,
+      "sha256": "60dfd800be037fbbf62647cbe8eba71fd5b284eb2bc1b2ccba2330765fad2500"
+    },
+    "src/lrfhss_gui_app/hop_view.py": {
+      "bytes": 5173,
+      "sha256": "35bccfff9fff50620b206b4abff971a74e3ceb0a2b3d79f8228b322b3bbffa0d"
+    },
+    "src/lrfhss_gui_app/journal.py": {
+      "bytes": 7474,
+      "sha256": "3c07d030a3b853ce43abc495dd606256d2cef5a2966a2ba1d487731e184cf084"
+    },
+    "src/lrfhss_gui_app/operator_layout.py": {
+      "bytes": 10773,
+      "sha256": "a4c56931fc3956135c32e0cd460482d74eaa472df2758092ebfc37e2c87d1b00"
+    },
+    "src/lrfhss_gui_app/packet_table.py": {
+      "bytes": 2087,
+      "sha256": "ce9e0a9168b70cdfdb2aa2f8c874344038d00b0a767da453360c5ba999637dac"
+    },
+    "src/lrfhss_gui_app/receiver.py": {
+      "bytes": 29179,
+      "sha256": "9bf0445ec7c86b12087304e4d9a585d7ca7c1b2e96d5b873bc677eb81bfe4002"
+    },
+    "src/lrfhss_gui_app/rr2_health.py": {
+      "bytes": 3347,
+      "sha256": "3787eb8fe5ef9cc12616140178b34c9567cfc7eeeee5ebb63691a03563832610"
+    },
+    "src/lrfhss_gui_app/session.py": {
+      "bytes": 11210,
+      "sha256": "8cb60c5376b27ecdd50107a7cbeb4fe1113bf7dd6a82bde9a735ea49881eaa97"
+    },
+    "src/lrfhss_gui_app/setup_dialog.py": {
+      "bytes": 2082,
+      "sha256": "4b35004d854632839da5258571d3bab984471ba4272189a7618c56d6e0934c3f"
+    },
+    "src/lrfhss_gui_app/theme.py": {
+      "bytes": 4305,
+      "sha256": "e89dc0482259e324505df0f24bdf0351b3c44a966c74715d70e575ce916174f0"
+    },
+    "src/lrfhss_gui_app/widgets.py": {
+      "bytes": 4397,
+      "sha256": "aaf90e605d85c52bc3e690731b5cb9beecc8498d4bcf070e35c47d45c5c9b948"
+    },
+    "src/lrfhss_gui_app/window.py": {
+      "bytes": 53028,
+      "sha256": "03147be6cfdc980f8e7b3d1fa7ae98c9e8b7afc4a60798d026fd6bb8fde9a619"
+    },
+    "src/lrfhss_header_batch.py": {
+      "bytes": 1799,
+      "sha256": "ecccaee20d61a3fdc0ce786be90d28b9d4ec70e8758e8164cef785335aacd7e7"
+    },
+    "src/lrfhss_header_cache.py": {
+      "bytes": 1565,
+      "sha256": "4ff20fde7beb0abe955332f6cdfb83aa2354bca49ce71461004862c70b91355a"
+    },
+    "src/lrfhss_header_frontend.py": {
+      "bytes": 2451,
+      "sha256": "ad0fa77b65187f8b4ff62d5637216e9dc72690804611aac6d5455dc5129d384d"
+    },
+    "src/lrfhss_header_grids.py": {
+      "bytes": 6875,
+      "sha256": "1678f94330c6a51ae8264d787660c84efc359ea379b35f6482f214a0038a7817"
+    },
+    "src/lrfhss_header_jobs.py": {
+      "bytes": 14852,
+      "sha256": "7bcc00f1fc98f8332e8cf8cd90e8b87d7bd016dde1e7533370a3171dcab569e7"
+    },
+    "src/lrfhss_header_pipeline.py": {
+      "bytes": 39250,
+      "sha256": "4ea1d1b194b3442d1d9aca2ecc2c500756234f680f52fe6c096bb5efda1baec7"
+    },
+    "src/lrfhss_header_reuse.py": {
+      "bytes": 1076,
+      "sha256": "18e49b9627feaab1ac69b911ab32f40fd218920acd1e207873b20d76f3ae7bd7"
+    },
+    "src/lrfhss_header_transaction.py": {
+      "bytes": 8574,
+      "sha256": "83eb0487fb6b19fb941b3a2c889d42f67ae0996d785bdd7180d5f2b5d83bb605"
+    },
+    "src/lrfhss_hop_ids.py": {
+      "bytes": 1889,
+      "sha256": "fc9d8c3b29cba4d719962410e6dd19261d112a066ac1e1f8398e3196f383fa86"
+    },
+    "src/lrfhss_iq_recorder.py": {
+      "bytes": 6329,
+      "sha256": "c06c696243894861513bcbeeaa5f0c0a72579f2470065e18f6a75157e19967c1"
+    },
+    "src/lrfhss_live.py": {
+      "bytes": 170216,
+      "sha256": "5831931697ca3539de77292e627b8b3a1b1a0214eb98eed3c261059d11c4aef4"
+    },
+    "src/lrfhss_metrics.py": {
+      "bytes": 1072,
+      "sha256": "803febbe7c4dc1aba52166e3be26f99a982afb0e915be2aea992f05faca58688"
+    },
+    "src/lrfhss_noise.py": {
+      "bytes": 2492,
+      "sha256": "21188142555ed28fe7b5c558f5556daa1d61591466210c28b9b10cfc215dd962"
+    },
+    "src/lrfhss_payload_accel.py": {
+      "bytes": 5616,
+      "sha256": "5a2c5c197e76767d247dd464423143b4f5777fc6ba99ed5387fdeccb4382f5b0"
+    },
+    "src/lrfhss_payload_jobs.py": {
+      "bytes": 28773,
+      "sha256": "21829c187ec336d9fceafcdfc5ae81ac194396f563ac00bb922646fd4ec15f04"
+    },
+    "src/lrfhss_phdr_dsp.py": {
+      "bytes": 9286,
+      "sha256": "7d4242220ae580c2118130ed7e9c86e37a594f7388fde81dcbe94e9aa9b3477c"
+    },
+    "src/lrfhss_phdr_screen.py": {
+      "bytes": 9309,
+      "sha256": "a0724fcf28d56473e98b7d1af755472f8f370c2b314c01182b779ed0733ea976"
+    },
+    "src/lrfhss_readable.py": {
+      "bytes": 8820,
+      "sha256": "d8d54e2709845ef30cea51982bbeff9773d13809112cf24cf8435f9e2be9f1ee"
+    },
+    "src/lrfhss_reports.py": {
+      "bytes": 6955,
+      "sha256": "9c18cea7ba189e2dee2237b5d95491ae2fa11693372183bc2590442e044a5d6f"
+    },
+    "src/lrfhss_shared_iq.py": {
+      "bytes": 6056,
+      "sha256": "ef9c3245662e4309057cd4964f5778e30e5917662c3443f419d1d324ec9c2b12"
+    },
+    "src/lrfhss_sic.py": {
+      "bytes": 29569,
+      "sha256": "626ea8d0608b62721ec912be01ac7417e3e15a0ab05174cc7a344576ddda7b8c"
+    },
+    "src/lrfhss_sic_jobs.py": {
+      "bytes": 8268,
+      "sha256": "0f12fcbf83141a4fcd492076f383a94673240bd0748fe09df7185eb9c7001a56"
+    },
+    "src/lrfhss_sic_owner.py": {
+      "bytes": 56653,
+      "sha256": "1d5a583d0ace8a7a6afffb562cb475a9a1d399a3ad211a884ec23c7342ff68b9"
+    },
+    "src/lrfhss_source_monitor.py": {
+      "bytes": 4992,
+      "sha256": "d2bb44d6b10855df4c494ef899bde99f37a298559d28d57648c79e24f74fbe83"
+    },
+    "src/lrfhss_test_data.py": {
+      "bytes": 5697,
+      "sha256": "d2167da15ca98457d1caccf62a67eeb37bd7869b0c18e3ea77bcbb97baf8465d"
+    },
+    "src/lrfhss_timing.py": {
+      "bytes": 1385,
+      "sha256": "68c4f9b18d46d7b08b4e56240a044e415e43cae60367673e2fc3852e9ff1d9fd"
+    },
+    "src/lrfhss_tracking.py": {
+      "bytes": 17341,
+      "sha256": "1a931a2d9762d5636e3d0db294e72c77a569d6433cd2a18ad0d0833459491ec3"
+    },
+    "tests/__init__.py": {
+      "bytes": 164,
+      "sha256": "06c9ceffc0aca2ee6c4fbf326c2f7e755ea35b7174d7b8015c8d06cb0c6d3639"
+    },
+    "tests/test_adaptive_payload_retry.py": {
+      "bytes": 5509,
+      "sha256": "722977de3ed7d5e1e220e86839a724725ead1bd25187d2b530d66baeb3ef8f04"
+    },
+    "tests/test_exhaustive_file.py": {
+      "bytes": 8175,
+      "sha256": "0cab95513baba69998c05d37974adc2a09b3d139d97b9be83c5d4efdda77a020"
+    },
+    "tests/test_fleet_diagnostics.py": {
+      "bytes": 2546,
+      "sha256": "ded2e323179ad7a7a6fb737de7d3c5ef3f52e1398e33845eb904d96bfe61e212"
+    },
+    "tests/test_public_capture.py": {
+      "bytes": 1449,
+      "sha256": "6a367b72a25c024080a80968657b5270ed50fe7b8b7044fd350c7436f4ffdad7"
+    },
+    "tests/test_release_runner.py": {
+      "bytes": 2330,
+      "sha256": "0cf897d7e9c3543473489b5bee84ef5a4e92e4b509b9de59394e5dd24f1b1357"
+    },
+    "tests/test_sic_frontend_policy.py": {
+      "bytes": 1397,
+      "sha256": "c2e2132d17abda5d4bd285c3d2491fc58f58085f6c494a9a924a7defdbd5ff1d"
+    },
+    "tests/test_sic_pressure_cache.py": {
+      "bytes": 3746,
+      "sha256": "c31e4e06d109eb68bd1530a4e09007a5ffdb6ef381feaa7f395270ffc017fae1"
+    },
+    "tests/test_tracking.py": {
+      "bytes": 6096,
+      "sha256": "81cdb37ecb2223c9aec2edc46b4e122a8ab8cc92039ec33bf05dc3bf1c1efcbd"
+    },
+    "tools/__init__.py": {
+      "bytes": 103,
+      "sha256": "00774cac47b75a35fc9e47bd3e7f82bffafee47bd8132523406b6cdab96e115e"
+    },
+    "tools/_src_path.py": {
+      "bytes": 300,
+      "sha256": "8904a0a5c06903323e464f6d03ef96c7db90962361d09def81c902746c370f9d"
+    },
+    "tools/run_release_tests.py": {
+      "bytes": 7872,
+      "sha256": "5938029d50773807580f2901b6e92ca16b689bd8cfc480835a2e76629c708ba0"
+    }
+  },
+  "manifest_excludes_own_hash": true,
+  "ref": "v1.0.0",
+  "schema": "lrfhss-public-export-v1",
+  "snapshot_note": "Committed snapshot",
+  "staged_snapshot": false,
+  "tree": "2542a7a210ed6e85b8c875eaf14393728d750d41"
+}
